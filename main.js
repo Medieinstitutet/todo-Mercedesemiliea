@@ -65,3 +65,11 @@ window.addEventListener('load', () => {
 
 //
 
+function displayDate() {
+	let date = new Date();
+	date = date.toString().split(" ");
+	date = date[1] + " " + date[2] + " " + date[3];
+	document.querySelector("#date").innerHTML = date;
+  }
+
+  displayDate();
