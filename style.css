@@ -165,3 +165,8 @@ main {
 .task .actions .delete {
 	color: crimson;
 }
+
+.form-check {
+	margin-left:60%;
+	color:var(--pink)
+}
