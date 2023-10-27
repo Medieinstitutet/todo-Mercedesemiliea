@@ -19,7 +19,8 @@ body {
 	flex-direction: column;
 	min-height: 100vh;
 	color: #FFF;
-	background-color: var(--dark);
+	background-color: var(--dark) !important;
+	margin-top: 150px;
 }
 
 header {
@@ -32,12 +33,13 @@ header {
 header h1{ 
 	font-size: 2.5rem;
 	font-weight: 300;
-	color: var(--grey);
+	color: var(--pink);
 	margin-bottom: 1rem;
+	text-transform: uppercase;
 }
 
 #new-task-form {
-	display: flex;;
+	display: flex;
 }
 
 input, button {
@@ -74,6 +76,7 @@ input, button {
 
 #new-task-submit:hover {
 	opacity: 0.8;
+	letter-spacing: 2px;
 }
 
 #new-task-submit:active {
@@ -89,13 +92,17 @@ main {
 
 .task-list {
 	padding: 1rem;
+	
 }
 
 .task-list h2 {
 	font-size: 1.5rem;
 	font-weight: 300;
-	color: var(--grey);
 	margin-bottom: 1rem;
+	background-image: linear-gradient(to right, var(--pink), var(--purple));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	text-transform: uppercase;
 }
 
 #tasks .task {
@@ -135,20 +142,24 @@ main {
 	font-weight: 700;
 	text-transform: uppercase;
 	transition: 0.4s;
+	
 }
 
 .task .actions button:hover {
 	opacity: 0.8;
+	letter-spacing: 2px;
 }
 
 .task .actions button:active {
 	opacity: 0.6;
+	
 }
 
 .task .actions .edit {
 	background-image: linear-gradient(to right, var(--pink), var(--purple));
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
+	
 }
 
 .task .actions .delete {
