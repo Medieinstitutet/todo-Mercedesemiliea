@@ -38,6 +38,7 @@ header h1{
 	text-transform: uppercase;
 }
 
+/* Formuläret är en flexbox*/
 #new-task-form {
 	display: flex;
 }
@@ -166,14 +167,15 @@ main {
 	color: crimson;
 }
 
+/* Färg på texten vid checkboxen */
 .form-check {
 	margin-left:60%;
 	color:var(--pink)
 }
 
+/* Dagens datum */
 #date {
 	color:var(--pink);
-	margin-left: 60%;
-	
+	margin-left: 60%;	
 }
 

@@ -1,13 +1,19 @@
+// Väntar tills dokumentet har laddats innan koden körs
 window.addEventListener('load', () => {
+	// Hämta formuläret,input-fältet och listan från DOM
 	const form = document.querySelector("#new-task-form");
 	const input = document.querySelector("#new-task-input");
 	const list_el = document.querySelector("#tasks");
 
+	//Lägger till en lyssnare för formulärets submit-event
 	form.addEventListener('submit', (e) => {
+		//Förhindrar standardbeteendet
 		e.preventDefault();
 
+		//Hämta värdet från input-fältet
 		const task = input.value;
 
+		//Skapar nya DOM-element för uppgiften och innehållet
 		const task_el = document.createElement('div');
 		task_el.classList.add('task');
 
@@ -46,6 +52,7 @@ window.addEventListener('load', () => {
 
 		input.value = '';
 
+		// 	lägger till lyssnare för edit och delete knapparna
 		task_edit_el.addEventListener('click', (e) => {
 			if (task_edit_el.innerText.toLowerCase() == "edit") {
 				task_edit_el.innerText = "Save";
@@ -63,7 +70,7 @@ window.addEventListener('load', () => {
 	});
 });
 
-//
+// Funktion för att visa dagens datum
 
 function displayDate() {
 	let date = new Date();
