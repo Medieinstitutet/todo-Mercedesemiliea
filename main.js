@@ -1,14 +1,18 @@
 // Väntar tills dokumentet har laddats innan koden körs
 window.addEventListener('load', () => {
 	// Hämta formuläret,input-fältet och listan från DOM
-	const form = document.querySelector("#new-task-form");
-	const input = document.querySelector("#new-task-input");
-	const list_el = document.querySelector("#tasks");
+	const form = document.getElementById("new-task-form");
+	const input = document.getElementById("new-task-input");
+	const list_el = document.getElementById("tasks");
+	
+
+	console.log(form, input, list_el);
 
 	//Lägger till en lyssnare för formulärets submit-event
 	form.addEventListener('submit', (e) => {
 		//Förhindrar standardbeteendet
 		e.preventDefault();
+		
 
 		//Hämta värdet från input-fältet
 		const task = input.value;
