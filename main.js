@@ -1,86 +1,84 @@
-// Väntar tills dokumentet har laddats innan koden körs
+const tasks = [];
+
+// Vänta tills dokumentet har laddats innan koden körs
 window.addEventListener('load', () => {
-	// Hämta formuläret,input-fältet och listan från DOM
-	const form = document.getElementById("new-task-form");
-	const input = document.getElementById("new-task-input");
-	const list_el = document.getElementById("tasks");
-	
+  const form = document.getElementById("new-task-form");
+  const input = document.getElementById("new-task-input");
+  const list_el = document.getElementById("tasks");
 
-	console.log(form, input, list_el);
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-	//Lägger till en lyssnare för formulärets submit-event
-	form.addEventListener('submit', (e) => {
-		//Förhindrar standardbeteendet
-		e.preventDefault();
-		
+    const taskContent = input.value;
+    
+    // Lägg till uppgiften i arrayen
+    const taskObj = {
+      content: taskContent,
+      isEditable: false,
+    };
+    tasks.push(taskObj);
 
-		//Hämta värdet från input-fältet
-		const task = input.value;
+    // Skapa ett nytt task-element och lägg till i DOM
+    const task_el = createTaskElement(taskObj);
+    list_el.appendChild(task_el);
 
-		//Skapar nya DOM-element för uppgiften och innehållet
-		const task_el = document.createElement('div');
-		task_el.classList.add('task');
-
-		const task_content_el = document.createElement('div');
-		task_content_el.classList.add('content');
-
-   
-
-		task_el.appendChild(task_content_el);
-
-		const task_input_el = document.createElement('input');
-		task_input_el.classList.add('text');
-		task_input_el.type = 'text';
-		task_input_el.value = task;
-		task_input_el.setAttribute('readonly', 'readonly');
-
-		task_content_el.appendChild(task_input_el);
-
-		const task_actions_el = document.createElement('div');
-		task_actions_el.classList.add('actions');
-		
-		const task_edit_el = document.createElement('button');
-		task_edit_el.classList.add('edit');
-		task_edit_el.innerText = 'Edit';
-
-		const task_delete_el = document.createElement('button');
-		task_delete_el.classList.add('delete');
-		task_delete_el.innerText = 'Delete';
-
-		task_actions_el.appendChild(task_edit_el);
-		task_actions_el.appendChild(task_delete_el);
-
-		task_el.appendChild(task_actions_el);
-
-		list_el.appendChild(task_el);
-
-		input.value = '';
-
-		// 	lägger till lyssnare för edit och delete knapparna
-		task_edit_el.addEventListener('click', (e) => {
-			if (task_edit_el.innerText.toLowerCase() == "edit") {
-				task_edit_el.innerText = "Save";
-				task_input_el.removeAttribute("readonly");
-				task_input_el.focus();
-			} else {
-				task_edit_el.innerText = "Edit";
-				task_input_el.setAttribute("readonly", "readonly");
-			}
-		});
-
-		task_delete_el.addEventListener('click', (e) => {
-			list_el.removeChild(task_el);
-		});
-	});
+    input.value = '';
+  });
 });
 
-// Funktion för att visa dagens datum
+function createTaskElement(taskObj) {
+  const task_el = document.createElement('div');
+  task_el.classList.add('task');
 
-function displayDate() {
-	let date = new Date();
-	date = date.toString().split(" ");
-	date = date[1] + " " + date[2] + " " + date[3];
-	document.querySelector("#date").innerHTML = date;
+  const task_content_el = document.createElement('div');
+  task_content_el.classList.add('content');
+
+  const task_input_el = document.createElement('input');
+  task_input_el.classList.add('text');
+  task_input_el.type = 'text';
+  task_input_el.value = taskObj.content;
+  task_input_el.readOnly = !taskObj.isEditable;
+
+  task_content_el.appendChild(task_input_el);
+  task_el.appendChild(task_content_el);
+
+  const task_actions_el = document.createElement('div');
+  task_actions_el.classList.add('actions');
+
+  const task_edit_el = document.createElement('button');
+  task_edit_el.classList.add('edit');
+  task_edit_el.innerText = taskObj.isEditable ? 'Save' : 'Edit';
+
+  const task_delete_el = document.createElement('button');
+  task_delete_el.classList.add('delete');
+  task_delete_el.innerText = 'Delete';
+
+  task_actions_el.appendChild(task_edit_el);
+  task_actions_el.appendChild(task_delete_el);
+  task_el.appendChild(task_actions_el);
+
+  // Lägg till lyssnare för edit och delete knapparna
+  task_edit_el.addEventListener('click', () => {
+    toggleTaskEditableState(taskObj, task_input_el, task_edit_el);
+  });
+
+  task_delete_el.addEventListener('click', () => {
+    deleteTask(taskObj, task_el);
+  });
+
+  return task_el;
+}
+
+function toggleTaskEditableState(taskObj, input_el, edit_el) {
+  taskObj.isEditable = !taskObj.isEditable;
+  input_el.readOnly = !taskObj.isEditable;
+  edit_el.innerText = taskObj.isEditable ? 'Save' : 'Edit';
+}
+
+function deleteTask(taskObj, task_el) {
+  const index = tasks.indexOf(taskObj);
+  if (index !== -1) {
+    tasks.splice(index, 1);
+    task_el.remove();
   }
-
-  displayDate();
+}
